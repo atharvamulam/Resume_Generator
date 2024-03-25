@@ -1,0 +1,35 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "Users": [
+    {
+      "Name": "Raman K",
+      "Email": "ramandev@gmail.com",
+      "Mobile": 9808980798,
+      "Age": 22,
+      "id": 6
+    },
+    {
+      "Name": "Raman Developer  1",
+      "Email": "raman@gmail.com",
+      "Mobile": 2343,
+      "Age": 33,
+      "id": 7
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
