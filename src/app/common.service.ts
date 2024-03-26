@@ -22,7 +22,7 @@ export class CommonService {
 
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.apiKey}`
+      // Authorization: `Bearer ${this.apiKey}`
     };
 
     return this.http.post<any>(this.apiUrl, requestBody, { headers });

@@ -34,7 +34,7 @@ export class AppComponent {
 
 
   async generateChatCompletion(): Promise<void> {
-    debugger
+    
     try {
       const chatCompletionRequest: CreateChatCompletionRequest = {
         model: 'gpt-3.5-turbo',
@@ -67,7 +67,7 @@ export class AppComponent {
     // Generate resume using formValues
   
     // Send user message to ChatGPT
-    const userMessage = 'Generate attractive text for my resume';
+    const userMessage = `Generate attractive text for my resume using this information: ${formValues}`;
     this.chatMessages.push({ sender: 'user', message: userMessage });
   
     this.chatService.sendMessage(userMessage).subscribe(response => {
