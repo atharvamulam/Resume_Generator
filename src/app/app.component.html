@@ -29,10 +29,10 @@
   </div>
 </nav>
 
-<form [formGroup]="resumeForm" (ngSubmit)="onSubmit()" class="px-10">
+<form [formGroup]="resumeForm" (ngSubmit)="onSubmit()" class="px-6 md:px-16">
   <!-- Personal Details -->
   <h3 class="mt-8 font-bold text-3xl">PERSONAL DETAILS</h3>
-  <div formGroupName="personalDetails">
+  <div formGroupName="personalDetails" class="border border-gray-600 p-4">
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" formControlName="name" required />
@@ -75,7 +75,7 @@
 
   <!-- Skills Section -->
   <h3 class="mt-8 font-bold text-3xl">SKILLS SECTION</h3>
-  <div formArrayName="skills">
+  <div formArrayName="skills" class="border border-gray-600 p-4">
     <div *ngFor="let skill of skills.controls; let i = index">
       <div class="form-group">
         <label for="skill{{ i }}">Skill {{ i + 1 }}:</label>
@@ -93,24 +93,23 @@
     </button>
   </div>
 
-  <!-- Education Section -->
   <h3 class="mt-8 font-bold text-3xl">EDUCATION</h3>
   <div formArrayName="educations">
-    <div *ngFor="let education of educations.controls; let i = index">
+    <div class="border border-gray-600 p-4 mb-6">
       <div class="form-group">
-        <label for="collegeName{{ i }}">College Name {{ i + 1 }}:</label>
+        <label for="collegeName0">College Name 1:</label>
         <input
           type="text"
           class="form-control"
-          id="collegeName{{ i }}"
-          [formControlName]="i + '.collegeName'"
+          id="collegeName0"
+          formControlName="0.collegeName"
           required
         />
         <!-- Validation for College Name -->
         <div
           *ngIf="
-            educations.controls[i]?.get('collegeName')?.invalid &&
-            educations.controls[i]?.get('collegeName')?.touched
+            educations.controls[0]?.get('collegeName')?.invalid &&
+            educations.controls[0]?.get('collegeName')?.touched
           "
           class="text-danger"
         >
@@ -118,19 +117,19 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="universityName{{ i }}">University Name {{ i + 1 }}:</label>
+        <label for="universityName0">University Name 1:</label>
         <input
           type="text"
           class="form-control"
-          id="universityName{{ i }}"
-          [formControlName]="i + '.universityName'"
+          id="universityName0"
+          formControlName="0.universityName"
           required
         />
         <!-- Validation for University Name -->
         <div
           *ngIf="
-            educations.controls[i]?.get('universityName')?.invalid &&
-            educations.controls[i]?.get('universityName')?.touched
+            educations.controls[0]?.get('universityName')?.invalid &&
+            educations.controls[0]?.get('universityName')?.touched
           "
           class="text-danger"
         >
@@ -138,19 +137,19 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="marksObtained{{ i }}">Marks Obtained {{ i + 1 }}:</label>
+        <label for="marksObtained0">Marks Obtained 1:</label>
         <input
           type="text"
           class="form-control"
-          id="marksObtained{{ i }}"
-          [formControlName]="i + '.marksObtained'"
+          id="marksObtained0"
+          formControlName="0.marksObtained"
           required
         />
         <!-- Validation for Marks Obtained -->
         <div
           *ngIf="
-            educations.controls[i]?.get('marksObtained')?.invalid &&
-            educations.controls[i]?.get('marksObtained')?.touched
+            educations.controls[0]?.get('marksObtained')?.invalid &&
+            educations.controls[0]?.get('marksObtained')?.touched
           "
           class="text-danger"
         >
@@ -158,19 +157,19 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="shortInfo{{ i }}">Any Short Info {{ i + 1 }}:</label>
+        <label for="shortInfo0">Any Short Info 1:</label>
         <input
           type="text"
           class="form-control"
-          id="shortInfo{{ i }}"
-          [formControlName]="i + '.shortInfo'"
+          id="shortInfo0"
+          formControlName="0.shortInfo"
           required
         />
         <!-- Validation for Short Info -->
         <div
           *ngIf="
-            educations.controls[i]?.get('shortInfo')?.invalid &&
-            educations.controls[i]?.get('shortInfo')?.touched
+            educations.controls[0]?.get('shortInfo')?.invalid &&
+            educations.controls[0]?.get('shortInfo')?.touched
           "
           class="text-danger"
         >
@@ -178,19 +177,19 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="year{{ i }}">Year of college {{ i + 1 }}:</label>
+        <label for="year0">Year of college 1:</label>
         <input
           type="text"
           class="form-control"
-          id="year{{ i }}"
-          [formControlName]="i + '.year'"
+          id="year0"
+          formControlName="0.year"
           required
         />
         <!-- Validation for Year of College -->
         <div
           *ngIf="
-            educations.controls[i]?.get('year')?.invalid &&
-            educations.controls[i]?.get('year')?.touched
+            educations.controls[0]?.get('year')?.invalid &&
+            educations.controls[0]?.get('year')?.touched
           "
           class="text-danger"
         >
@@ -198,31 +197,132 @@
         </div>
       </div>
     </div>
-    <button type="button" (click)="addEducationField()" class="btn btn-primary">
-      Add Education
-    </button>
+
+    <!-- Second Education Box -->
+    <div class="border border-gray-600 p-4">
+      <div class="form-group">
+        <label for="collegeName1">College Name 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="collegeName1"
+          formControlName="1.collegeName"
+          required
+        />
+        <!-- Validation for College Name -->
+        <div
+          *ngIf="
+            educations.controls[1]?.get('collegeName')?.invalid &&
+            educations.controls[1]?.get('collegeName')?.touched
+          "
+          class="text-danger"
+        >
+          College Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="universityName1">University Name 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="universityName1"
+          formControlName="1.universityName"
+          required
+        />
+        <!-- Validation for University Name -->
+        <div
+          *ngIf="
+            educations.controls[1]?.get('universityName')?.invalid &&
+            educations.controls[1]?.get('universityName')?.touched
+          "
+          class="text-danger"
+        >
+          University Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="marksObtained1">Marks Obtained 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="marksObtained1"
+          formControlName="1.marksObtained"
+          required
+        />
+        <!-- Validation for Marks Obtained -->
+        <div
+          *ngIf="
+            educations.controls[1]?.get('marksObtained')?.invalid &&
+            educations.controls[1]?.get('marksObtained')?.touched
+          "
+          class="text-danger"
+        >
+          Marks Obtained is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="shortInfo1">Any Short Info 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="shortInfo1"
+          formControlName="1.shortInfo"
+          required
+        />
+        <!-- Validation for Short Info -->
+        <div
+          *ngIf="
+            educations.controls[1]?.get('shortInfo')?.invalid &&
+            educations.controls[1]?.get('shortInfo')?.touched
+          "
+          class="text-danger"
+        >
+          Short Info is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="year1">Year of college 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="year1"
+          formControlName="1.year"
+          required
+        />
+        <!-- Validation for Year of College -->
+        <div
+          *ngIf="
+            educations.controls[1]?.get('year')?.invalid &&
+            educations.controls[1]?.get('year')?.touched
+          "
+          class="text-danger"
+        >
+          Year of College is required.
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Projects Section -->
   <h3 class="mt-8 font-bold text-3xl">PROJECTS</h3>
   <div formArrayName="projects">
-    <!-- Loop through project controls -->
-    <div *ngFor="let project of projects.controls; let i = index">
+    <div class="border border-gray-600 p-4 mb-6">
+      <!-- First Project Box -->
       <div class="form-group">
         <!-- Project Name -->
-        <label for="projectName{{ i }}">Project Name {{ i + 1 }}:</label>
+        <label for="projectName0">Project Name 1:</label>
         <input
           type="text"
           class="form-control"
-          id="projectName{{ i }}"
-          [formControlName]="i + '.projectName'"
+          id="projectName0"
+          formControlName="0.projectName"
           required
         />
         <!-- Validation for Project Name -->
         <div
           *ngIf="
-            projects.controls[i]?.get('projectName')?.invalid &&
-            projects.controls[i]?.get('projectName')?.touched
+            projects.controls[0]?.get('projectName')?.invalid &&
+            projects.controls[0]?.get('projectName')?.touched
           "
           class="text-danger"
         >
@@ -231,21 +331,19 @@
       </div>
       <div class="form-group">
         <!-- Project Description -->
-        <label for="projectDescription{{ i }}"
-          >Project Description {{ i + 1 }}:</label
-        >
+        <label for="projectDescription0">Project Description 1:</label>
         <input
           type="text"
           class="form-control"
-          id="projectDescription{{ i }}"
-          [formControlName]="i + '.projectDescription'"
+          id="projectDescription0"
+          formControlName="0.projectDescription"
           required
         />
         <!-- Validation for Project Description -->
         <div
           *ngIf="
-            projects.controls[i]?.get('projectDescription')?.invalid &&
-            projects.controls[i]?.get('projectDescription')?.touched
+            projects.controls[0]?.get('projectDescription')?.invalid &&
+            projects.controls[0]?.get('projectDescription')?.touched
           "
           class="text-danger"
         >
@@ -254,19 +352,19 @@
       </div>
       <div class="form-group">
         <!-- Tech stack used -->
-        <label for="techStack{{ i }}">Tech stack used {{ i + 1 }}:</label>
+        <label for="techStack0">Tech stack used 1:</label>
         <input
           type="text"
           class="form-control"
-          id="techStack{{ i }}"
-          [formControlName]="i + '.techStack'"
+          id="techStack0"
+          formControlName="0.techStack"
           required
         />
         <!-- Validation for Tech stack used -->
         <div
           *ngIf="
-            projects.controls[i]?.get('techStack')?.invalid &&
-            projects.controls[i]?.get('techStack')?.touched
+            projects.controls[0]?.get('techStack')?.invalid &&
+            projects.controls[0]?.get('techStack')?.touched
           "
           class="text-danger"
         >
@@ -275,19 +373,19 @@
       </div>
       <div class="form-group">
         <!-- Github Link -->
-        <label for="githubLink{{ i }}">Github Link {{ i + 1 }}:</label>
+        <label for="githubLink0">Github Link 1:</label>
         <input
           type="text"
           class="form-control"
-          id="githubLink{{ i }}"
-          [formControlName]="i + '.githubLink'"
+          id="githubLink0"
+          formControlName="0.githubLink"
           required
         />
         <!-- Validation for Github Link -->
         <div
           *ngIf="
-            projects.controls[i]?.get('githubLink')?.invalid &&
-            projects.controls[i]?.get('githubLink')?.touched
+            projects.controls[0]?.get('githubLink')?.invalid &&
+            projects.controls[0]?.get('githubLink')?.touched
           "
           class="text-danger"
         >
@@ -295,14 +393,102 @@
         </div>
       </div>
     </div>
-    <!-- Button to add a new project -->
-    <button type="button" (click)="addProjectField()" class="btn btn-primary">
-      Add Project
-    </button>
+
+    <!-- Second Project Box -->
+    <div class="border border-gray-600 p-4">
+      <div class="form-group">
+        <!-- Project Name -->
+        <label for="projectName1">Project Name 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="projectName1"
+          formControlName="1.projectName"
+          required
+        />
+        <!-- Validation for Project Name -->
+        <div
+          *ngIf="
+            projects.controls[1]?.get('projectName')?.invalid &&
+            projects.controls[1]?.get('projectName')?.touched
+          "
+          class="text-danger"
+        >
+          Project Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Project Description -->
+        <label for="projectDescription1">Project Description 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="projectDescription1"
+          formControlName="1.projectDescription"
+          required
+        />
+        <!-- Validation for Project Description -->
+        <div
+          *ngIf="
+            projects.controls[1]?.get('projectDescription')?.invalid &&
+            projects.controls[1]?.get('projectDescription')?.touched
+          "
+          class="text-danger"
+        >
+          Project Description is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Tech stack used -->
+        <label for="techStack1">Tech stack used 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="techStack1"
+          formControlName="1.techStack"
+          required
+        />
+        <!-- Validation for Tech stack used -->
+        <div
+          *ngIf="
+            projects.controls[1]?.get('techStack')?.invalid &&
+            projects.controls[1]?.get('techStack')?.touched
+          "
+          class="text-danger"
+        >
+          Tech stack used is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Github Link -->
+        <label for="githubLink1">Github Link 2:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="githubLink1"
+          formControlName="1.githubLink"
+          required
+        />
+        <!-- Validation for Github Link -->
+        <div
+          *ngIf="
+            projects.controls[1]?.get('githubLink')?.invalid &&
+            projects.controls[1]?.get('githubLink')?.touched
+          "
+          class="text-danger"
+        >
+          Github Link is required.
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary mt-8" [disabled]="resumeForm.invalid">
+  <button
+    type="submit"
+    class="btn btn-primary flex justify-center items-center w-full md:w-[30%] md:mx-auto my-8"
+    [disabled]="resumeForm.invalid"
+  >
     Generate Resume
   </button>
 </form>
