@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("mongodb+srv://WEBX:WEBX@cluster0.ljnfw0o.mongodb.net/resume?retryWrites=true&w=majority&appName=Cluster0")
+  .connect("#mongo URI")
   .then(() => {
     console.log("Connected to MongoDB");
   })
