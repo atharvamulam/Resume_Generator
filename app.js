@@ -24,12 +24,16 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  quantity: { type: Number, required: true },
+const personalInfoSchema = new mongoose.Schema({
+  name: { type: String },
+  email: { type: String },
+  number: { type: Number },
+  collegeName: { type: String },
+  location: { type: String },
+  cgpa: { type: Number },
+  passingYear: { type: Number },
 });
-const Product = mongoose.model("Product", productSchema);
+const PersonalInfo = mongoose.model("PersonalInfo", personalInfoSchema);
 // Register a new user
 app.post("/register", async (req, res) => {
   try {
@@ -82,108 +86,67 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/products", async (req, res) => {
+app.get("/resume", async (req, res) => {
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    const resumes = await PersonalInfo.find();
+    res.status(200).json(resumes);
   } catch (error) {
-    console.error("Error getting products:", error);
+    console.error("Error getting resume:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-app.post("/products", async (req, res) => {
+app.post("/resume", async (req, res) => {
   try {
-    const { name, price, quantity } = req.body;
-    const newProduct = new Product({ name, price, quantity });
-    await newProduct.save();
-    res.status(201).json({ message: "Product added successfully" });
+    const { name, email, number, collegeName, location, cgpa, passingYear } =
+      req.body;
+    const newPersonalInfo = new PersonalInfo({
+      name,
+      email,
+      number,
+      collegeName,
+      location,
+      cgpa,
+      passingYear,
+    });
+    await newPersonalInfo.save();
+    res.status(201).json({ message: "Resume generated successfully" });
   } catch (error) {
-    console.error("Error adding product:", error);
+    console.error("Error adding resume:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-app.put("/products/:id", async (req, res) => {
+app.put("/resumes/:id", async (req, res) => {
   debugger;
   try {
-    const { name, price, quantity } = req.body;
-    await Product.findByIdAndUpdate(req.params.id, { name, price, quantity });
-    res.status(200).json({ message: "Product updated successfully" });
+    const { name, email, number } = req.body;
+    await PersonalInfo.findByIdAndUpdate(req.params.id, {
+      name,
+      email,
+      number,
+      collegeName,
+      location,
+      cgpa,
+      passingYear,
+    });
+    res.status(200).json({ message: "Resume updated successfully" });
   } catch (error) {
     console.error("Error updating product:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
-app.delete("/products/:id", async (req, res) => {
+
+app.delete("/resumes/:id", async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Product deleted successfully" });
+    await PersonalInfo.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Resume deleted successfully" });
   } catch (error) {
-    console.error("Error deleting product:", error);
+    console.error("Error deleting resume:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-// increment an decrement
-app.put("/products/increment/:id", async (req, res) => {
-  try {
-    const productId = req.params.id;
-
-    // Find the product by ID
-    const product = await Product.findById(productId);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    // Increment the quantity by 1
-    product.quantity += 100;
-
-    // Save the updated product
-    await product.save();
-
-    res
-      .status(200)
-      .json({ message: "Product quantity incremented successfully", product });
-  } catch (error) {
-    console.error("Error incrementing product quantity:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Decrement the quantity of a product
-app.put("/products/decrement/:id", async (req, res) => {
-  try {
-    const productId = req.params.id;
-
-    // Find the product by ID
-    const product = await Product.findById(productId);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    // Ensure quantity doesn't go negative
-    if (product.quantity > 0) {
-      // Decrement the quantity by 1
-      product.quantity -= 100;
-
-      // Save the updated product
-      await product.save();
-
-      res.status(200).json({
-        message: "Product quantity decremented successfully",
-        product,
-      });
-    } else {
-      res.status(400).json({ message: "Product quantity cannot be negative" });
-    }
-  } catch (error) {
-    console.error("Error decrementing product quantity:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 // Start the server
 app.listen(3000, () => {
   console.log("Server started on port 3000");

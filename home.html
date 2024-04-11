@@ -17,26 +17,34 @@
     <div>
 
     <div>
-        <h2>Add Customer</h2>
-        <form ng-submit="addProduct()">
-            <input type="text" ng-model="newProduct.name" placeholder="Customer Name" required>
-            <input type="number" ng-model="newProduct.price" placeholder="Phone number" required>
-            <input type="number" ng-model="newProduct.quantity" placeholder="Deposite" required>
+        <h2>Create Resume</h2>
+        <form ng-submit="addPersonalInfo()">
+            <h1>Personal Information</h1>
+            <input type="text" ng-model="newPersonalInfo.name" placeholder="User Name" required>
+            <input type="text" ng-model="newPersonalInfo.email" placeholder="Email ID" required>
+            <input type="number" ng-model="newPersonalInfo.number" placeholder="Phone Number" required>
+
+            <h1>Educational Details</h1>
+            <input type="text" ng-model="newPersonalInfo.collegeName" placeholder="College Name" required>
+            <input type="text" ng-model="newPersonalInfo.location" placeholder="Location" required>
+            <input type="number" ng-model="newPersonalInfo.cgpa" placeholder="C.G.P.P.A" required>
+            <input type="number" ng-model="newPersonalInfo.passingYear" placeholder="Passing Year" required>
             <button type="submit">Add</button>
         </form>
     </div>
 
-    <div class="card" ng-show="productsLoaded">
-    <h2>Account Holders</h2>
+    <div class="card" ng-show="personalInfoLoaded">
     <ul class="row">
         <li ng-repeat="product in products" style="width: 25%;">
             <ul>
                 <li>Name: {{ product.name }}</li>
-                <li>Phone no: {{ product.price }}</li>
-                <li>Amount: {{ product.quantity }}</li>
+                <li>Email ID: {{ product.email }}</li>
+                <li>Phone No: {{ product.number }}</li>
+                <li>College Name: {{ product.collegeName }}</li>
+                <li>Location: {{ product.location }}</li>
+                <li>C.G.P.A: {{ product.cgpa }}</li>
+                <li>Passing Year: {{ product.passingYear }}</li>
             </ul>
-            <button ng-click="incrementQuantity(product)">Increment</button>
-            <button ng-click="decrementQuantity(product)">Decrement</button>
             <button ng-click="deleteProduct(product._id)">Delete</button>
             <button ng-click="editProduct(product)">Edit</button>
         </li>
@@ -47,8 +55,12 @@
         <h2>Edit Product</h2>
         <form ng-submit="updateProduct()">
             <input type="text" ng-model="editingProduct.name" required>
-            <input type="number" ng-model="editingProduct.price" required>
-            <input type="number" ng-model="editingProduct.quantity" required>
+            <input type="text" ng-model="editingProduct.email" required>
+            <input type="number" ng-model="editingProduct.number" required>
+            <input type="text" ng-model="editingProduct.collegeName" required>
+            <input type="text" ng-model="editingProduct.location" required>
+            <input type="number" ng-model="editingProduct.cgpa" required>
+            <input type="number" ng-model="editingProduct.passingYear" required>
             <button type="submit">Update</button>
         </form>
     </div>
@@ -56,26 +68,26 @@
     <script>
         angular.module('myApp', [])
     .controller('HomeController', function($scope, $http) {
-        $scope.newProduct = {};
+        $scope.newPersonalInfo = {};
         $scope.editingProduct = null;
         $scope.products = [];
-        $scope.productsLoaded = false;
+        $scope.personalInfoLoaded = false;
 
         // Load products from the server
-        $http.get('http://localhost:3000/products')
+        $http.get('http://localhost:3000/resume')
             .then(function(response) {
                 $scope.products = response.data;
-                $scope.productsLoaded = true;
+                $scope.personalInfoLoaded = true;
             })
             .catch(function(error) {
                 console.error('Error loading products:', error);
             });
 
-        $scope.addProduct = function() {
-            $http.post('http://localhost:3000/products', $scope.newProduct)
+        $scope.addPersonalInfo = function() {
+            $http.post('http://localhost:3000/resume', $scope.newPersonalInfo)
                 .then(function(response) {
                     $scope.products.push(response.data);
-                    $scope.newProduct = {};
+                    $scope.newPersonalInfo = {};
                 })
                 .catch(function(error) {
                     console.error('Error adding product:', error);
@@ -83,7 +95,7 @@
         };
 
         $scope.deleteProduct = function(productId) {
-            $http.delete('http://localhost:3000/products/' + productId)
+            $http.delete('http://localhost:3000/resumes/' + productId)
                 .then(function(response) {
                     $scope.products = $scope.products.filter(function(product) {
                         return product._id !== productId;
@@ -99,7 +111,7 @@
         };
 
         $scope.updateProduct = function() {
-            $http.put('http://localhost:3000/products/' + $scope.editingProduct._id, $scope.editingProduct)
+            $http.put('http://localhost:3000/resumes/' + $scope.editingProduct._id, $scope.editingProduct)
                 .then(function(response) {
                     // If the update is successful, reset editingProduct
                     $scope.editingProduct = null;
@@ -107,18 +119,6 @@
                 .catch(function(error) {
                     console.error('Error updating product:', error);
                 });
-        };
-
-        $scope.incrementQuantity = function(product) {
-            product.quantity+=100; // Increment the quantity locally
-            updateQuantity(product); // Call the function to update the quantity in the database
-        };
-
-        $scope.decrementQuantity = function(product) {
-            if (product.quantity > 0) { // Ensure quantity doesn't go negative
-                product.quantity-=100; // Decrement the quantity locally
-                updateQuantity(product); // Call the function to update the quantity in the database
-            }
         };
 
         function updateQuantity(product) {

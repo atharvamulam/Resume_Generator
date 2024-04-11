@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect("#mongo URI")
+  .connect("mongodb+srv://WEBX:WEBX@cluster0.ljnfw0o.mongodb.net/resume?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -18,7 +18,8 @@ mongoose
 
 const resumeSectionSchema = new mongoose.Schema({
   title: { type: String,},
-  content: { type: String},
+  email: { type: String},
+  phoneNo: { type: Number},
 });
 
 const ResumeSection = mongoose.model("ResumeSection", resumeSectionSchema);
@@ -38,8 +39,8 @@ app.get("/resumeSections", async (req, res) => {
 app.post("/resumeSections", async (req, res) => {
   try {
     console.log("Adding new resume section:", req.body);
-    const { title, content } = req.body;
-    const newResumeSection = new ResumeSection({ title, content });
+    const { title, email, phoneNo } = req.body;
+    const newResumeSection = new ResumeSection({ title, email, phoneNo });
     await newResumeSection.save();
     console.log("Resume section added successfully");
     res.status(201).json({ message: "Resume section added successfully" });
