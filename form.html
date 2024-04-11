@@ -6,10 +6,10 @@
     <title>FORM</title>
   </head>
   <body>
-    <h2>Enter details</h2>
+    <h1>Enter details</h1>
     <form ng-submit="addPersonalInfo()">
       <div class="section">
-        <h1>Personal Information</h1>
+        <h2>Personal Information</h2>
         <div class="input-group">
           <input
             type="text"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="section">
-        <h1>Educational Details</h1>
+        <h2>Educational Details</h2>
         <div class="input-group">
           <input
             type="text"
@@ -62,8 +62,8 @@
         </div>
       </div>
 
-      <div class="section">
-        <h1>Skills</h1>
+      <div class="section" style="margin-bottom: 30px;" >
+        <h2>Skills</h2>
         <div class="input-group">
           <input
             type="text"
@@ -73,7 +73,12 @@
           />
         </div>
       </div>
-      <button type="submit">Add</button>
+      <button
+        type="submit"
+        style="background-color: rgba(0, 255, 255, 0.834); width: 300px; margin: 10px auto; padding: 14px 16px; color: black; font-weight: bolder; font-size: 1.4rem;"
+      >
+        Add
+      </button>
     </form>
   </body>
 </html>

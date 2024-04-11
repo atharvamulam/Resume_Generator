@@ -8,13 +8,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
   </head>
   <body>
-    <div class="content-area" ng-view></div>
-
+    <div style="background-color: #333; overflow: hidden">
+      <!-- <img src="#" alt="Logo" style="height: 50px; padding: 10px" /> -->
+      <div
+        style="
+          background-color: black;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 30px;
+        "
+      >
+        <h3>RESUME GENREATOR</h3>
+        <nav style="display: flex; gap: 50px">
+          <a href="#!/home" style="color: white; text-decoration: none">HOME</a>
+          <a href="#!/form" style="color: white; text-decoration: none"
+            >GENERATOR</a
+          >
+          <a href="#!/resumes" style="color: white; text-decoration: none"
+            >RESUMES</a>
+        </nav>
+      </div>
+      <div style="padding: 20px" class="content-area" ng-view></div>
+    </div>
     <script>
       angular
         .module("myApp", ["ngRoute"])
         .config(function ($routeProvider) {
           $routeProvider
+            .when("/home", {
+              templateUrl: "index.html",
+            })
             .when("/form", {
               templateUrl: "form.html",
               controller: "FormController",
@@ -23,7 +47,7 @@
               templateUrl: "resumes.html",
               controller: "ResumeController",
             })
-            .otherwise({ redirectTo: "/form" });
+            .otherwise({ redirectTo: "/home" });
         })
 
         .controller("FormController", function ($scope, $http, $location) {

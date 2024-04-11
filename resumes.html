@@ -8,16 +8,16 @@
   <body>
     <h1>RESUMES GENERATED</h1>
     <ul class="row">
-      <li ng-repeat="resume in resumes" style="width: 90%">
+      <li ng-repeat="resume in resumes" style="width: 90%;">
         <ul>
-          <li>Name: {{ resume.name }}</li>
-          <li>Email ID: {{ resume.email }}</li>
-          <li>Phone No: {{ resume.number }}</li>
-          <li>College Name: {{ resume.collegeName }}</li>
-          <li>Location: {{ resume.location }}</li>
-          <li>C.G.P.A: {{ resume.cgpa }}</li>
-          <li>Passing Year: {{ resume.passingYear }}</li>
-          <li>Skills: {{ resume.skills }}</li>
+          <li style="border: 2px solid gray;">Name: {{ resume.name }}</li>
+          <li style="border: 2px solid gray;">Email ID: {{ resume.email }}</li>
+          <li style="border: 2px solid gray;">Phone No: {{ resume.number }}</li>
+          <li style="border: 2px solid gray;">College Name: {{ resume.collegeName }}</li>
+          <li style="border: 2px solid gray;">Location: {{ resume.location }}</li>
+          <li style="border: 2px solid gray;">C.G.P.A: {{ resume.cgpa }}</li>
+          <li style="border: 2px solid gray;">Passing Year: {{ resume.passingYear }}</li>
+          <li style="border: 2px solid gray;">Skills: {{ resume.skills }}</li>
         </ul>
         <button ng-click="deleteResume(resume._id)">Delete</button>
         <button ng-click="editResume(resume)">Edit</button>
