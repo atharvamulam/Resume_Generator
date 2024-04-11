@@ -45,42 +45,42 @@
                         <input type="text" ng-model="newPersonalInfo.skills" placeholder="Skills" required>
                     </div>
                 </div>
-    
                 <button type="submit">Add</button>
             </form>
         </div>
 
     <div class="card" ng-show="personalInfoLoaded">
+    <h1>RESUMES GENERATED</h1>
     <ul class="row">
-        <li ng-repeat="product in products" style="width: 25%;">
+        <li ng-repeat="resume in resumes" style="width: 90%;">
             <ul>
-                <li>Name: {{ product.name }}</li>
-                <li>Email ID: {{ product.email }}</li>
-                <li>Phone No: {{ product.number }}</li>
-                <li>College Name: {{ product.collegeName }}</li>
-                <li>Location: {{ product.location }}</li>
-                <li>C.G.P.A: {{ product.cgpa }}</li>
-                <li>Passing Year: {{ product.passingYear }}</li>
-                <li>Skills: {{ product.skills }}</li>
+                <li>Name: {{ resume.name }}</li>
+                <li>Email ID: {{ resume.email }}</li>
+                <li>Phone No: {{ resume.number }}</li>
+                <li>College Name: {{ resume.collegeName }}</li>
+                <li>Location: {{ resume.location }}</li>
+                <li>C.G.P.A: {{ resume.cgpa }}</li>
+                <li>Passing Year: {{ resume.passingYear }}</li>
+                <li>Skills: {{ resume.skills }}</li>
             </ul>
-            <button ng-click="deleteProduct(product._id)">Delete</button>
-            <button ng-click="editProduct(product)">Edit</button>
+            <button ng-click="deleteResume(resume._id)">Delete</button>
+            <button ng-click="editResume(resume)">Edit</button>
             <button ng-click="generatePDF()">Download Resume</button>
         </li>
     </ul>
 </div>
 
-    <div ng-show="editingProduct">
-        <h2>Edit Product</h2>
-        <form ng-submit="updateProduct()">
-            <input type="text" ng-model="editingProduct.name" required>
-            <input type="text" ng-model="editingProduct.email" required>
-            <input type="number" ng-model="editingProduct.number" required>
-            <input type="text" ng-model="editingProduct.collegeName" required>
-            <input type="text" ng-model="editingProduct.location" required>
-            <input type="number" ng-model="editingProduct.cgpa" required>
-            <input type="number" ng-model="editingProduct.passingYear" required>
-            <input type="text" ng-model="editingProduct.skills" required>
+    <div ng-show="editingResume">
+        <h2>Edit Resume</h2>
+        <form ng-submit="updateResume()">
+            <input type="text" ng-model="editingResume.name" required>
+            <input type="text" ng-model="editingResume.email" required>
+            <input type="number" ng-model="editingResume.number" required>
+            <input type="text" ng-model="editingResume.collegeName" required>
+            <input type="text" ng-model="editingResume.location" required>
+            <input type="number" ng-model="editingResume.cgpa" required>
+            <input type="number" ng-model="editingResume.passingYear" required>
+            <input type="text" ng-model="editingResume.skills" required>
             <button type="submit">Update</button>
         </form>
     </div>
@@ -89,18 +89,18 @@
         angular.module('myApp', [])
     .controller('HomeController', function($scope, $http) {
         $scope.newPersonalInfo = {};
-        $scope.editingProduct = null;
-        $scope.products = [];
+        $scope.editingResume = null;
+        $scope.resumes = [];
         $scope.personalInfoLoaded = false;
 
-        // Load products from the server
+        // Load resumes from the server
         $http.get('http://localhost:3000/resume')
             .then(function(response) {
-                $scope.products = response.data;
+                $scope.resumes = response.data;
                 $scope.personalInfoLoaded = true;
             })
             .catch(function(error) {
-                console.error('Error loading products:', error);
+                console.error('Error loading resumes:', error);
             });
 
         // Function to generate HTML content for the resume
@@ -120,7 +120,7 @@
 
         // Function to generate PDF from HTML content
         $scope.generatePDF = function() {
-        const resumeHTML = generateResumeHTML($scope.products[0]); // Assuming there's only one resume data
+        const resumeHTML = generateResumeHTML($scope.resumes[0]); // Assuming there's only one resume data
 
         const options = {
             filename: 'resume.pdf',
@@ -137,44 +137,44 @@
         $scope.addPersonalInfo = function() {
             $http.post('http://localhost:3000/resume', $scope.newPersonalInfo)
                 .then(function(response) {
-                    $scope.products.push(response.data);
+                    $scope.resumes.push(response.data);
                     $scope.newPersonalInfo = {};
                 })
                 .catch(function(error) {
-                    console.error('Error adding product:', error);
+                    console.error('Error adding resume:', error);
                 });
         };
 
-        $scope.deleteProduct = function(productId) {
-            $http.delete('http://localhost:3000/resumes/' + productId)
+        $scope.deleteResume = function(resumeID) {
+            $http.delete('http://localhost:3000/resumes/' + resumeID)
                 .then(function(response) {
-                    $scope.products = $scope.products.filter(function(product) {
-                        return product._id !== productId;
+                    $scope.resumes = $scope.resumes.filter(function(resume) {
+                        return resume._id !== resumeID;
                     });
                 })
                 .catch(function(error) {
-                    console.error('Error deleting product:', error);
+                    console.error('Error deleting resume:', error);
                 });
         };
 
-        $scope.editProduct = function(product) {
-            $scope.editingProduct = angular.copy(product);
+        $scope.editResume = function(resume) {
+            $scope.editingResume = angular.copy(resume);
         };
 
-        $scope.updateProduct = function() {
-            $http.put('http://localhost:3000/resumes/' + $scope.editingProduct._id, $scope.editingProduct)
+        $scope.updateResume = function() {
+            $http.put('http://localhost:3000/resumes/' + $scope.editingResume._id, $scope.editingResume)
                 .then(function(response) {
-                    // If the update is successful, reset editingProduct
-                    $scope.editingProduct = null;
+                    // If the update is successful, reset editingResume
+                    $scope.editingResume = null;
                 })
                 .catch(function(error) {
-                    console.error('Error updating product:', error);
+                    console.error('Error updating resume:', error);
                 });
         };
 
-        function updateQuantity(product) {
+        function updateQuantity(resume) {
             debugger;
-            $http.put('http://localhost:3000/products/' + product._id, product)
+            $http.put('http://localhost:3000/resumes/' + resume._id, resume)
                 .then(function(response) {
                     console.log(response.data.message); // Log success message
                 })

@@ -99,8 +99,16 @@ app.get("/resume", async (req, res) => {
 
 app.post("/resume", async (req, res) => {
   try {
-    const { name, email, number, collegeName, location, cgpa, passingYear,skills } =
-      req.body;
+    const {
+      name,
+      email,
+      number,
+      collegeName,
+      location,
+      cgpa,
+      passingYear,
+      skills,
+    } = req.body;
     const newPersonalInfo = new PersonalInfo({
       name,
       email,
@@ -122,7 +130,16 @@ app.post("/resume", async (req, res) => {
 app.put("/resumes/:id", async (req, res) => {
   debugger;
   try {
-    const { name, email, number } = req.body;
+    const {
+      name,
+      email,
+      number,
+      collegeName,
+      location,
+      cgpa,
+      passingYear,
+      skills,
+    } = req.body;
     await PersonalInfo.findByIdAndUpdate(req.params.id, {
       name,
       email,
@@ -135,7 +152,7 @@ app.put("/resumes/:id", async (req, res) => {
     });
     res.status(200).json({ message: "Resume updated successfully" });
   } catch (error) {
-    console.error("Error updating product:", error);
+    console.error("Error updating resume:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
