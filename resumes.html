@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RESUMES</title>
+  </head>
+  <body>
+    <h1>RESUMES GENERATED</h1>
+    <ul class="row">
+      <li ng-repeat="resume in resumes" style="width: 90%">
+        <ul>
+          <li>Name: {{ resume.name }}</li>
+          <li>Email ID: {{ resume.email }}</li>
+          <li>Phone No: {{ resume.number }}</li>
+          <li>College Name: {{ resume.collegeName }}</li>
+          <li>Location: {{ resume.location }}</li>
+          <li>C.G.P.A: {{ resume.cgpa }}</li>
+          <li>Passing Year: {{ resume.passingYear }}</li>
+          <li>Skills: {{ resume.skills }}</li>
+        </ul>
+        <button ng-click="deleteResume(resume._id)">Delete</button>
+        <button ng-click="editResume(resume)">Edit</button>
+        <button ng-click="generatePDF()">Download Resume</button>
+      </li>
+    </ul>
+
+    <div ng-show="editingResume">
+      <h2>Edit Resume</h2>
+      <form ng-submit="updateResume()">
+        <input type="text" ng-model="editingResume.name" required />
+        <input type="text" ng-model="editingResume.email" required />
+        <input type="number" ng-model="editingResume.number" required />
+        <input type="text" ng-model="editingResume.collegeName" required />
+        <input type="text" ng-model="editingResume.location" required />
+        <input type="number" ng-model="editingResume.cgpa" required />
+        <input type="number" ng-model="editingResume.passingYear" required />
+        <input type="text" ng-model="editingResume.skills" required />
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </body>
+</html>

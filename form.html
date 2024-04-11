@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FORM</title>
+  </head>
+  <body>
+    <h2>Enter details</h2>
+    <form ng-submit="addPersonalInfo()">
+      <div class="section">
+        <h1>Personal Information</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            ng-model="newPersonalInfo.name"
+            placeholder="Name"
+            required
+          />
+          <input
+            type="text"
+            ng-model="newPersonalInfo.email"
+            placeholder="Email ID"
+            required
+          />
+          <input
+            type="number"
+            ng-model="newPersonalInfo.number"
+            placeholder="Phone Number"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="section">
+        <h1>Educational Details</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            ng-model="newPersonalInfo.collegeName"
+            placeholder="College Name"
+            required
+          />
+          <input
+            type="text"
+            ng-model="newPersonalInfo.location"
+            placeholder="Location"
+            required
+          />
+          <input
+            type="number"
+            ng-model="newPersonalInfo.cgpa"
+            placeholder="C.G.P.A"
+            required
+          />
+          <input
+            type="number"
+            ng-model="newPersonalInfo.passingYear"
+            placeholder="Passing Year"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="section">
+        <h1>Skills</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            ng-model="newPersonalInfo.skills"
+            placeholder="Skills"
+            required
+          />
+        </div>
+      </div>
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
