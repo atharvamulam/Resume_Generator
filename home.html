@@ -19,7 +19,7 @@
           padding: 10px 30px;
         "
       >
-        <h3>RESUME GENREATOR</h3>
+        <h3>RESUME GENERATOR</h3>
         <nav style="display: flex; gap: 50px">
           <a href="#!/home" style="color: white; text-decoration: none">HOME</a>
           <a href="#!/form" style="color: white; text-decoration: none"
@@ -119,17 +119,17 @@
           function generateResumeHTML(resumeData) {
             let htmlContent = '<div class="resume">';
             htmlContent += "<h2>" + resumeData.name + "</h2>";
-            htmlContent += "<p>Email: " + resumeData.email + "</p>";
-            htmlContent += "<p>Phone: " + resumeData.number + "</p>";
-            htmlContent += "<p>College: " + resumeData.collegeName + "</p>";
-            htmlContent += "<p>Location: " + resumeData.location + "</p>";
-            htmlContent += "<p>CGPA: " + resumeData.cgpa + "</p>";
-            htmlContent +=
-              "<p>Passing Year: " + resumeData.passingYear + "</p>";
-            htmlContent += "<p>Skills: " + resumeData.skills + "</p>";
+            htmlContent += "<p style='color: black;'>Email: " + resumeData.email + "</p>";
+            htmlContent += "<p style='color: black;'>Phone: " + resumeData.number + "</p>";
+            htmlContent += "<p style='color: black;'>College: " + resumeData.collegeName + "</p>";
+            htmlContent += "<p style='color: black;'>Location: " + resumeData.location + "</p>";
+            htmlContent += "<p style='color: black;'>CGPA: " + resumeData.cgpa + "</p>";
+            htmlContent += "<p style='color: black;'>Passing Year: " + resumeData.passingYear + "</p>";
+            htmlContent += "<p style='color: black;'>Skills: " + resumeData.skills + "</p>";
             htmlContent += "</div>";
             return htmlContent;
-          }
+        }
+
 
           // Function to generate PDF from HTML content
           $scope.generatePDF = function () {
