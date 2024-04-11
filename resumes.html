@@ -8,20 +8,45 @@
   <body>
     <h1>RESUMES GENERATED</h1>
     <ul class="row">
-      <li ng-repeat="resume in resumes" style="width: 90%;">
+      <li ng-repeat="resume in resumes" style="width: 90%">
         <ul>
-          <li style="border: 2px solid gray;">Name: {{ resume.name }}</li>
-          <li style="border: 2px solid gray;">Email ID: {{ resume.email }}</li>
-          <li style="border: 2px solid gray;">Phone No: {{ resume.number }}</li>
-          <li style="border: 2px solid gray;">College Name: {{ resume.collegeName }}</li>
-          <li style="border: 2px solid gray;">Location: {{ resume.location }}</li>
-          <li style="border: 2px solid gray;">C.G.P.A: {{ resume.cgpa }}</li>
-          <li style="border: 2px solid gray;">Passing Year: {{ resume.passingYear }}</li>
-          <li style="border: 2px solid gray;">Skills: {{ resume.skills }}</li>
+          <li style="border: 2px solid gray">Name: {{ resume.name }}</li>
+          <li style="border: 2px solid gray">Email ID: {{ resume.email }}</li>
+          <li style="border: 2px solid gray">Phone No: {{ resume.number }}</li>
+          <li style="border: 2px solid gray">
+            College Name: {{ resume.collegeName }}
+          </li>
+          <li style="border: 2px solid gray">
+            Location: {{ resume.location }}
+          </li>
+          <li style="border: 2px solid gray">C.G.P.A: {{ resume.cgpa }}</li>
+          <li style="border: 2px solid gray">
+            Passing Year: {{ resume.passingYear }}
+          </li>
+          <li style="border: 2px solid gray">Skills: {{ resume.skills }}</li>
         </ul>
-        <button ng-click="deleteResume(resume._id)">Delete</button>
-        <button ng-click="editResume(resume)">Edit</button>
-        <button ng-click="generatePDF()">Download Resume</button>
+        <div style="gap: 10px; display: flex; flex-direction: column">
+          <div style="display: flex">
+            <button
+              ng-click="editResume(resume)"
+              style="width: 250px; margin: 0 auto"
+            >
+              Edit
+            </button>
+            <button
+              ng-click="deleteResume(resume._id)"
+              style="background-color: red; width: 250px; margin: 0 auto"
+            >
+              Delete
+            </button>
+          </div>
+          <button
+            ng-click="generatePDF()"
+            style="background-color: green; width: 560px; margin: 0 auto; font-weight: semibold; font-size: 1.4rem;"
+          >
+            Download Resume
+          </button>
+        </div>
       </li>
     </ul>
 
