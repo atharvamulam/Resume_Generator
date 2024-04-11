@@ -1,7 +1,0 @@
-{
-    "/api": {
-      "target": "https://api.chatgpt.com",
-      "secure": true,
-      "changeOrigin": true
-    }
-  }
