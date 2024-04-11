@@ -32,6 +32,7 @@ const personalInfoSchema = new mongoose.Schema({
   location: { type: String },
   cgpa: { type: Number },
   passingYear: { type: Number },
+  skills: { type: String },
 });
 const PersonalInfo = mongoose.model("PersonalInfo", personalInfoSchema);
 // Register a new user
@@ -98,7 +99,7 @@ app.get("/resume", async (req, res) => {
 
 app.post("/resume", async (req, res) => {
   try {
-    const { name, email, number, collegeName, location, cgpa, passingYear } =
+    const { name, email, number, collegeName, location, cgpa, passingYear,skills } =
       req.body;
     const newPersonalInfo = new PersonalInfo({
       name,
@@ -108,6 +109,7 @@ app.post("/resume", async (req, res) => {
       location,
       cgpa,
       passingYear,
+      skills,
     });
     await newPersonalInfo.save();
     res.status(201).json({ message: "Resume generated successfully" });
@@ -129,6 +131,7 @@ app.put("/resumes/:id", async (req, res) => {
       location,
       cgpa,
       passingYear,
+      skills,
     });
     res.status(200).json({ message: "Resume updated successfully" });
   } catch (error) {
@@ -147,7 +150,6 @@ app.delete("/resumes/:id", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });
