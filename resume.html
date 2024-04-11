@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="resumeApp">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Resume Generator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body ng-controller="ResumeController">
+    <div class="content-area">
+        <h1>Resume Generator</h1>
+
+        <div>
+            <h2>Add Personal Information</h2>
+            <form ng-submit="addPersonalInfo()">
+                <input type="text" ng-model="newPersonalInfo.name" placeholder="Full Name" required>
+                <input type="text" ng-model="newPersonalInfo.email" placeholder="Email" required>
+                <input type="text" ng-model="newPersonalInfo.phone" placeholder="Phone Number" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <div class="card" ng-show="personalInfoLoaded">
+            <h2>Personal Information</h2>
+            <ul>
+                <li>Name: {{ personalInfo.name }}</li>
+                <li>Email: {{ personalInfo.email }}</li>
+                <li>Phone: {{ personalInfo.phone }}</li>
+            </ul>
+            <button ng-click="editPersonalInfo()">Edit</button>
+        </div>
+
+        <div ng-show="editingPersonalInfo">
+            <h2>Edit Personal Information</h2>
+            <form ng-submit="updatePersonalInfo()">
+                <input type="text" ng-model="personalInfo.name" required>
+                <input type="text" ng-model="personalInfo.email" required>
+                <input type="text" ng-model="personalInfo.phone" required>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        angular.module('resumeApp', [])
+        .controller('ResumeController', function($scope, $http) {
+            $scope.newPersonalInfo = {};
+            $scope.editingPersonalInfo = null;
+            $scope.personalInfo = {};
+            $scope.personalInfoLoaded = false;
+    
+            // Load personal information from the server
+            console.log("Fetching personal information...");
+            $http.get('http://localhost:3000/resumeSections')
+                .then(function(response) {
+                    console.log("Personal information received:", response.data);
+                    $scope.personalInfo = response.data[0]; // Assuming personal information is the first entry
+                    $scope.personalInfoLoaded = true;
+                })
+                .catch(function(error) {
+                    console.error('Error loading personal information:', error);
+                });
+    
+            $scope.addPersonalInfo = function() {
+                console.log("Adding personal information:", $scope.newPersonalInfo);
+                $http.post('http://localhost:3000/resumeSections', $scope.newPersonalInfo)
+                    .then(function(response) {
+                        console.log("Personal information added successfully:", response.data);
+                        $scope.personalInfo = response.data;
+                        $scope.newPersonalInfo = {};
+                        $scope.personalInfoLoaded = true;
+                    })
+                    .catch(function(error) {
+                        console.error('Error adding personal information:', error);
+                    });
+            };
+    
+            $scope.editPersonalInfo = function() {
+                $scope.editingPersonalInfo = angular.copy($scope.personalInfo);
+            };
+    
+            $scope.updatePersonalInfo = function() {
+                console.log("Updating personal information:", $scope.editingPersonalInfo);
+                $http.put('http://localhost:3000/resumeSections/' + $scope.personalInfo._id, $scope.editingPersonalInfo)
+                    .then(function(response) {
+                        console.log("Personal information updated successfully:", response.data);
+                        $scope.personalInfo = $scope.editingPersonalInfo;
+                        $scope.editingPersonalInfo = null;
+                    })
+                    .catch(function(error) {
+                        console.error('Error updating personal information:', error);
+                    });
+            };
+        });
+    </script>
+    
+</body>
+</html>
