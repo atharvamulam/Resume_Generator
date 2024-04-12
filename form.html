@@ -11,71 +11,79 @@
       <div class="section">
         <h2>Personal Information</h2>
         <div class="input-group">
-          <input
-            type="text"
+          <input-field
             ng-model="newPersonalInfo.name"
-            placeholder="Name"
-            required
-          />
-          <input
             type="text"
+            placeholder="Name"
+            required="true"
+          ></input-field>
+          <input-field
             ng-model="newPersonalInfo.email"
+            type="email"
             placeholder="Email ID"
-            required
-          />
-          <input
-            type="number"
+            required="true"
+          ></input-field>
+          <input-field
             ng-model="newPersonalInfo.number"
+            type="tel"
             placeholder="Phone Number"
-            required
-          />
+            required="true"
+          ></input-field>
         </div>
       </div>
 
       <div class="section">
         <h2>Educational Details</h2>
         <div class="input-group">
-          <input
+          <input-field
             type="text"
             ng-model="newPersonalInfo.collegeName"
             placeholder="College Name"
             required
-          />
-          <input
+          ></input-field>
+          <input-field
             type="text"
             ng-model="newPersonalInfo.location"
             placeholder="Location"
             required
-          />
-          <input
+          ></input-field>
+          <input-field
             type="number"
             ng-model="newPersonalInfo.cgpa"
             placeholder="C.G.P.A"
             required
-          />
-          <input
+          ></input-field>
+          <input-field
             type="number"
             ng-model="newPersonalInfo.passingYear"
             placeholder="Passing Year"
             required
-          />
+          ></input-field>
         </div>
       </div>
 
-      <div class="section" style="margin-bottom: 30px;" >
+      <div class="section" style="margin-bottom: 30px">
         <h2>Skills</h2>
         <div class="input-group">
-          <input
+          <input-field
             type="text"
             ng-model="newPersonalInfo.skills"
             placeholder="Skills"
             required
-          />
+          ></input-field>
         </div>
       </div>
       <button
         type="submit"
-        style="background-color: rgba(0, 255, 255, 0.834); width: 300px; margin: 10px auto; padding: 14px 16px; color: black; font-weight: bolder; font-size: 1.4rem;"
+        style="
+          background-color: rgba(0, 255, 255, 0.834);
+          width: 300px;
+          margin: 10px auto;
+          padding: 14px 16px;
+          color: black;
+          font-weight: bolder;
+          font-size: 1.4rem;
+        "
       >
         Add
       </button>
