@@ -161,8 +161,8 @@
           }
 
           // Function to generate PDF from HTML content
-          $scope.generatePDF = function () {
-            const resumeHTML = generateResumeHTML($scope.resumes[0]); // Assuming there's only one resume data
+          $scope.generatePDF = function (resume) {
+            const resumeHTML = generateResumeHTML(angular.copy(resume)); // Assuming there's only one resume data
 
             const options = {
               filename: "resume.pdf",
